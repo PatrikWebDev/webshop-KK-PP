@@ -6,54 +6,103 @@ const db = new sqlite3.Database('./products.db')
 module.exports = class DbAdapter {
 
   get(sqlString, params) {
-      return new Promise((resolve, reject) => {
-          db.serialize(() => {
-              db.get(sqlString, params, (err, result) => {
-                  if (err) {
-                    console.log(err)
-                      reject(err);
-                      return
-                  }
-                  resolve(result)
-              })
-          })
+    return new Promise((resolve, reject) => {
+      db.serialize(() => {
+        db.get(sqlString, params, (err, result) => {
+          if (err) {
+            console.log(err)
+            reject(err);
+            return
+          }
+          resolve(result)
+        })
       })
+    })
   }
 
   all(sqlString, params) {
-      return new Promise((resolve, reject) => {
-          db.serialize(() => {
-              db.all(sqlString, params, (err, results) => {
-                  if (err) {
-                      reject(err);
-                      return
-                  }
-                  resolve(results)
-              })
-          })
+    return new Promise((resolve, reject) => {
+      db.serialize(() => {
+        db.all(sqlString, params, (err, results) => {
+          if (err) {
+            reject(err);
+            return
+          }
+          resolve(results)
+        })
       })
+    })
   }
 
 
   run(sqlString, params) {
-      return new Promise((resolve, reject) => {
-          db.serialize(() => {
-              db.run(sqlString, params, function (err) {
-                  if (err) {
-                      reject(err);
-                      return
-                  }
-                  resolve(this.lastID)
-              })
-          })
+    return new Promise((resolve, reject) => {
+      db.serialize(() => {
+        db.run(sqlString, params, function (err) {
+          if (err) {
+            reject(err);
+            return
+          }
+          resolve(this.lastID)
+        })
       })
+    })
   }
 
 }
 
+const data = [
+  {
+    "id": "1",
+    "name": "Xiaomi Mi Note 10",
+    "shortSpecs": "Xiaomi Mi Note 10 128GB 6GB RAM Dual",
+    "image": "/telefon/xiaomi-mi-10",
+    "qty": 7,
+    "price": 137850
+  },
+  {
+    "id": "1",
+    "name": "Xiaomi Mi Note 10",
+    "shortSpecs": "Xiaomi Mi Note 10 128GB 6GB RAM Dual",
+    "image": "/telefon/xiaomi-mi-10",
+    "qty": 7,
+    "price": 137850
+  },
+  {
+    "id": "1",
+    "name": "Xiaomi Mi Note 10",
+    "shortSpecs": "Xiaomi Mi Note 10 128GB 6GB RAM Dual",
+    "image": "/telefon/xiaomi-mi-10",
+    "qty": 7,
+    "price": 137850
+  },
+  {
+    "id": "1",
+    "name": "Xiaomi Mi Note 10",
+    "shortSpecs": "Xiaomi Mi Note 10 128GB 6GB RAM Dual",
+    "image": "/telefon/xiaomi-mi-10",
+    "qty": 7,
+    "price": 137850
+  },
+  {
+    "id": "1",
+    "name": "Xiaomi Mi Note 10",
+    "shortSpecs": "Xiaomi Mi Note 10 128GB 6GB RAM Dual",
+    "image": "/telefon/xiaomi-mi-10",
+    "qty": 7,
+    "price": 137850
+  }
+]
 
 
-
+  const specs = {
+    szelesseg: "74.2 mm",
+    hosszusag: "157.2 mm",
+    vastagsag: "9.7 mm",
+    megapixel: "108 MPx",
+    rom: "256 GB",
+    processzor: "2.2 GHz"
+  }
 
 
 
@@ -110,7 +159,31 @@ module.exports = class DbAdapter {
 //       db.run("INSERT INTO products (name, shortSpecs, image, qty, price) VALUES (?,?,?,?,?)", [data[i].name, data[i].shortSpecs, data[i].image, data[i].qty, data[i].price]);
 //   }
 
-//   db.all('SELECT * FROM products', (err, results) => {
+//   db.run("CREATE TABLE IF NOT EXISTS specs (id INTEGER PRIMARY KEY AUTOINCREMENT, product_id INTEGER, szelesseg VARCHAR(20), hosszusag VARCHAR(20), vastagsag VARCHAR(20), megapixel VARCHAR(20), rom VARCHAR(20), processzor VARCHAR(20))");
+
+
+//     db.run("INSERT INTO specs (product_id, szelesseg, hosszusag, vastagsag, megapixel, rom, processzor) VALUES (?,?,?,?,?,?,?)", [1, specs.szelesseg, specs.hosszusag, specs.vastagsag, specs.megapixel, specs.rom, specs.processzor]);
+//     db.run("INSERT INTO specs (product_id, szelesseg, hosszusag, vastagsag, megapixel, rom, processzor) VALUES (?,?,?,?,?,?,?)", [2, specs.szelesseg, specs.hosszusag, specs.vastagsag, specs.megapixel, specs.rom, specs.processzor]);
+//     db.run("INSERT INTO specs (product_id, szelesseg, hosszusag, vastagsag, megapixel, rom, processzor) VALUES (?,?,?,?,?,?,?)", [3, specs.szelesseg, specs.hosszusag, specs.vastagsag, specs.megapixel, specs.rom, specs.processzor]);
+//     db.run("INSERT INTO specs (product_id, szelesseg, hosszusag, vastagsag, megapixel, rom, processzor) VALUES (?,?,?,?,?,?,?)", [4, specs.szelesseg, specs.hosszusag, specs.vastagsag, specs.megapixel, specs.rom, specs.processzor]);
+//     db.run("INSERT INTO specs (product_id, szelesseg, hosszusag, vastagsag, megapixel, rom, processzor) VALUES (?,?,?,?,?,?,?)", [5, specs.szelesseg, specs.hosszusag, specs.vastagsag, specs.megapixel, specs.rom, specs.processzor]);
+
+//   db.all(`SELECT 
+//             products.name, 
+//             products.shortSpecs, 
+//             products.image, 
+//             products.qty, 
+//             products.price, 
+//             specs.szelesseg, 
+//             specs.hosszusag, 
+//             specs.vastagsag, 
+//             specs.megapixel, 
+//             specs.rom, 
+//             specs.processzor  
+//           FROM 
+//             products
+//           INNER JOIN
+//             specs ON products.id = specs.product_id`, (err, results) => {
 //     console.log(results)
 //   })
 // });

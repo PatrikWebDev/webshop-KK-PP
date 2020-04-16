@@ -10,7 +10,12 @@ const app = express();
 app.use(cors())
 const port = 3000;
 
-app.get('/products', productsController.findProducts.bind(productsController))
+app.use(express.json());
+app.use(express.urlencoded({ extended: true }));
 
+app.use(express.static('public'))
+
+app.get('/products/:id', productsController.findProductsById.bind(productsController))
+app.get('/products', productsController.findProducts.bind(productsController))
 
 app.listen(port, () => console.log(`Example app listening on port ${port}!`));
