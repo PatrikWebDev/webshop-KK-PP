@@ -10,3 +10,16 @@ img{
   width: 25px;
   height: 25px;
 }
+
+.pictures{
+  display: inline-block;
+  width: 100px;
+  height: 100px;
+  padding: 50px;
+}
+
+#central {
+  padding: 50px;
+  width: 450px;
+  height: 450px;
+} 

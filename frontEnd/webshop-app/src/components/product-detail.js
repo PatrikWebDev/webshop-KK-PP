@@ -1,4 +1,5 @@
 import React, {Component} from 'react'
+import ImageGallery from './image-gallery'
 
 export default class ProductDetail extends Component{
     constructor(){
@@ -25,7 +26,7 @@ export default class ProductDetail extends Component{
                 (
                     <div>
                <div>
-                <p>placeholder for image gallery</p>
+                <ImageGallery />
                <p>{this.state.product.name}</p>
                <p>{this.state.product.price}</p>
                <button type="button">Add to cart</button>
