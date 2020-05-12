@@ -1,5 +1,5 @@
 const sqlite3 = require('sqlite3').verbose();
-const db = new sqlite3.Database('./products.db')
+const db = new sqlite3.Database('./products3.db')
 
 
 
@@ -95,14 +95,14 @@ const data = [
 ]
 
 
-  const specs = {
-    szelesseg: "74.2 mm",
-    hosszusag: "157.2 mm",
-    vastagsag: "9.7 mm",
-    megapixel: "108 MPx",
-    rom: "256 GB",
-    processzor: "2.2 GHz"
-  }
+//   const specs = {
+//     szelesseg: "74.2 mm",
+//     hosszusag: "157.2 mm",
+//     vastagsag: "9.7 mm",
+//     megapixel: "108 MPx",
+//     rom: "256 GB",
+//     processzor: "2.2 GHz"
+//   }
 
 
 
@@ -156,7 +156,7 @@ const data = [
 //   db.run("CREATE TABLE IF NOT EXISTS products (id INTEGER PRIMARY KEY AUTOINCREMENT, name VARCHAR(60), shortSpecs VARCHAR(120), image VARCHAR(100), qty INTEGER, price INTEGER)");
 
 //   for (let i = 0; i < data.length; i++) {
-//       db.run("INSERT INTO products (name, shortSpecs, image, qty, price) VALUES (?,?,?,?,?)", [data[i].name, data[i].shortSpecs, data[i].image, data[i].qty, data[i].price]);
+//       db.run("INSERT INTO products (id, name, shortSpecs, image, qty, price) VALUES (?,?,?,?,?,?)", [data[i].id, data[i].name, data[i].shortSpecs, data[i].image, data[i].qty, data[i].price]);
 //   }
 
 //   db.run("CREATE TABLE IF NOT EXISTS specs (id INTEGER PRIMARY KEY AUTOINCREMENT, product_id INTEGER, szelesseg VARCHAR(20), hosszusag VARCHAR(20), vastagsag VARCHAR(20), megapixel VARCHAR(20), rom VARCHAR(20), processzor VARCHAR(20))");

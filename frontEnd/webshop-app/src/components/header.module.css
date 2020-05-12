@@ -1,0 +1,11 @@
+.header {
+    display: flex;
+}
+
+.details{
+    display: none;
+}
+
+.shoppingCart:hover .details{
+    display: block;
+}

@@ -10,12 +10,12 @@ module.exports = class ProductsController {
     try {
       let products = await this.productsRepository.findAllProducts()
       products.forEach(product =>{ 
-        const files = createImageUrlsForProduct(product.image)
-        product.image = files;
+        // const files = createImageUrlsForProduct(product.image)
+        // product.image = files;
       })
       res.json(products)
     } catch (error) {
-      res.json(err)
+      res.json(error)
     }
 
   }
@@ -25,8 +25,8 @@ module.exports = class ProductsController {
     if (id) {
       try {
         const product = await this.productsRepository.findAllProductsById(id)
-        const files = createImageUrlsForProduct(product.image)
-        product.image = files
+        // const files = createImageUrlsForProduct(product.image)
+        // product.image = files
         res.json(product)
       } catch (error) {
         res.json(err)

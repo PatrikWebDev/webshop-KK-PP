@@ -11,11 +11,10 @@ export default class ProductDetail extends Component{
     }
 
     componentDidMount() {
-        fetch(`http://44228aa1.ngrok.io/products/${this.props.match.params.id}`)
+        fetch(`http://localhost:3005/products/${this.props.match.params.id}`)
         .then(res => res.json())
         .then(product => {
-          console.log(product)
-          this.setState({product})
+          this.setState({product: product})
         })
     }
     
@@ -26,7 +25,7 @@ export default class ProductDetail extends Component{
                 (
                     <div>
                <div>
-                <ImageGallery />
+                <ImageGallery img={this.state.product.image} />
                <p>{this.state.product.name}</p>
                <p>{this.state.product.price}</p>
                <button type="button">Add to cart</button>

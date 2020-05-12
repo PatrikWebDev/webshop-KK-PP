@@ -1,5 +1,4 @@
 import React, {Component} from 'react'
-import ProductDetail from './product-detail'
 
 export default class Products extends Component{
     constructor(){
@@ -11,10 +10,9 @@ export default class Products extends Component{
     }
 
     componentDidMount() {
-        fetch(`http://44228aa1.ngrok.io/products`)
+        fetch(`http://localhost:3005/products`)
         .then(res => res.json())
         .then(products => {
-          console.log(products)
           this.setState({products})
         })
     }
@@ -30,7 +28,6 @@ export default class Products extends Component{
                 {this.state.products ? 
                 (
                 <div>
-                <h3>Site Header</h3>
                 <table>
                     <thead></thead>                    
                     <tbody>
@@ -38,7 +35,7 @@ export default class Products extends Component{
                         {this.state.products.map((product, index)=>{
                             return(
                                 <td key={index}>
-                                    <img src={product.image} onClick={() => this.openPost(product.id)} />
+                                    <img  alt="An imge of a product" src={product.image} onClick={() => this.openPost(product.id)} />
                                     <p>{product.name}</p>
                                     <p>{product.shortSpecs}</p>
                                 </td>

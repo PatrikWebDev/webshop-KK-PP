@@ -1,0 +1,7 @@
+.details{
+    display: none;
+}
+
+.shoppingcart:hover .details{
+    display: block;
+}
