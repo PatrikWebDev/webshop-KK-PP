@@ -1,53 +1,27 @@
 import React, {Component} from 'react'
-import ProductDetail from './product-detail'
+import { connect } from 'react-redux';
+import {Link} from "react-router-dom";
 
-export default class Products extends Component{
-    constructor(){
-        super()
-        this.state = {
-            products: undefined
-        }
-
-    }
-
-    componentDidMount() {
-        fetch(`http://44228aa1.ngrok.io/products`)
-        .then(res => res.json())
-        .then(products => {
-          console.log(products)
-          this.setState({products})
-        })
-    }
-
-    openPost(id) {
-        window.location.href = `http://localhost:3000/products/${id}`
-      }
-
+class Products extends Component{
     render(){
-
         return(
             <div className="productsContainer">
-                {this.state.products ? 
+                {this.props.products.length > 1 ? 
                 (
                 <div>
-                <h3>Site Header</h3>
-                <table>
-                    <thead></thead>                    
-                    <tbody>
-                    <tr>
-                        {this.state.products.map((product, index)=>{
+                    <div>
+                        <div>
+                        {this.props.products.map((product, index)=>{
                             return(
-                                <td key={index}>
-                                    <img src={product.image} onClick={() => this.openPost(product.id)} />
+                                <div>
+                                    <Link to = {`/products/${product.id}`} ><img  alt={`${product.name}`} src={product.image}/></Link>
                                     <p>{product.name}</p>
                                     <p>{product.shortSpecs}</p>
-                                </td>
+                                </div>
                             )
                             })}
-                    </tr>
-                    </tbody>
-                </table>
-
+                        </div>
+                        </div>
                 <h3>Site Footer</h3>
                 </div>)
                 : "Loading"
@@ -56,3 +30,11 @@ export default class Products extends Component{
         )
     }
 }
+
+function mapStateToProps(state){
+    return {
+       products: state.products
+    }
+}
+
+export default connect(mapStateToProps)(Products)

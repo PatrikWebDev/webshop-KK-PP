@@ -8,7 +8,7 @@ const productsController = new ProductsController( new productsRepository( new D
 
 const app = express();
 app.use(cors())
-const port = 3000;
+const port = 3005;
 
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));

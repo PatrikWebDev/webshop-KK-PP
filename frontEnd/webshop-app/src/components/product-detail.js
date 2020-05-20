@@ -1,43 +1,43 @@
 import React, {Component} from 'react'
 import ImageGallery from './image-gallery'
+import classes from "./CarouselComponents/singleProduct.module.css"
+import {add, remove} from '../Store/action'
+import { connect } from 'react-redux';
 
-export default class ProductDetail extends Component{
-    constructor(){
-        super()
-        this.state = {
-            product: undefined
-        }
-
-    }
-
-    componentDidMount() {
-        fetch(`http://44228aa1.ngrok.io/products/${this.props.match.params.id}`)
-        .then(res => res.json())
-        .then(product => {
-          console.log(product)
-          this.setState({product})
-        })
-    }
-    
+class ProductDetail extends Component{
     render(){
-        return(
-           <div>
-{this.state.product ? 
-                (
-                    <div>
-               <div>
-                <ImageGallery />
-               <p>{this.state.product.name}</p>
-               <p>{this.state.product.price}</p>
-               <button type="button">Add to cart</button>
-               <p>{this.state.product.shortSpecs}</p>
-               </div>
-               <p>{this.state.product.specs}</p>
-               <p>{this.state.product.recommendations}</p>
-               </div>)
-               : "Loading"}
 
-           </div>
+        if(this.props.products.length > 0){
+            const specificItem = this.props.products.find(element => element.id === +window.location.pathname.split('/products/')[1])
+            return(
+                <div className="jumbotron" style={{display:"grid", justifyItems:"center"}}>
+               <p className="display-3" >{specificItem.name}</p>
+               <p className="lead" >{specificItem.price}</p>
+               <ImageGallery style={{padding: "0"}} img={specificItem.image} />
+               <p className="lead" >{specificItem.shortSpecs}</p>
+               <button className="btn btn-primary" onClick={() => {this.props.add(specificItem)}}>Add to cart</button>
+               <p className="lead" >{specificItem.specs}</p>
+               <p className="lead" >{specificItem.recommendations}</p>
+               </div>
+            )
+        }
+        return(
+               <div className={classes.spinner}>
+                <div className={classes.cube1}></div>
+                <div className={classes.cube2}></div>
+              </div>
         )
     }
 }
+
+function mapStateToProps(state){
+    return {...state}
+}
+function mapDispatchToProps(dispatch) {
+    return {
+        add: (product) => dispatch(add(product)),
+        remove: (product) => dispatch(remove(product))
+      }
+}
+
+export default connect(mapStateToProps, mapDispatchToProps)(ProductDetail)

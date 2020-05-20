@@ -6,6 +6,7 @@ module.exports = class ProductsRepository {
   async findAllProducts() {
     // const findAllProducts = 'SELECT id, name, shortSpecs, image, qty, price FROM products'
     const findAllProducts = `SELECT 
+                              products.id,
                               products.name, 
                               products.shortSpecs, 
                               products.image, 
@@ -32,6 +33,7 @@ module.exports = class ProductsRepository {
   async findAllProductsById(id) {
     // const findProductById = 'SELECT id, name, shortSpecs, image, qty, price FROM products WHERE id = ?'
     const findProductById = `SELECT 
+                              products.id,
                               products.name, 
                               products.shortSpecs, 
                               products.image, 
