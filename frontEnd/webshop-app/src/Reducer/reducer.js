@@ -1,52 +1,74 @@
-  
-//import store from "../Store/store";
-import { ADD, REMOVE } from "../Store/action";
+import { ADD, REMOVE, EMPTY, DATALOADED, ORDER } from "../Store/action";
+
 
 const testData = {
-    products: [{sku: 'kisku', price: 211, name: 'Kiskutya', qty: 33 },
-    {sku: 'kisci', price: 333, name: 'Kiscica', qty: 34 },
-    {sku: 'kisha',price: 456, name: 'Kishalacska', qty: 23 },
-    {sku: 'sargka',price: 789, name: 'Sárgakacsa', qty: 3 },
-    {sku: 'barku',price: 2166, name: 'Barnakutya', stock: 55 },
-    {sku: 'keci',price: 323, name: 'Kékcica', stock: 13 },
-    {sku: 'fuha',price: 476, name: 'Furahalacska', stock: 56 },
-    {sku: 'mima',price: 7209, name: 'Milyenkacsa', stock: 7 },],
-    cartItems: []
+    products: [],
+    cartItems: [],
+    orders: []
 }
 
 
-export default function Reducer(state = testData, action) {
-    const newState = { ...state }
-    const support =  newState.cartItems.find(element => element.name === action.product.name)
+export default function reducer(state = testData,  action) {
+    const newState = {};
+    const newOrders = {};
+    newState.cartItems = [...state.cartItems];
+    newOrders.orders = [...state.orders];
+        const specificItem =  newState.cartItems.find(element => element.name === action.product.name)
+        const index = newState.cartItems.findIndex(element => element.name === action.product.name)
     switch(action.type) {
         case ADD: 
-        if(support){
-            newState.cartItems = newState.cartItems.filter(element => element.name !== support.name )
-            support.pieces ? support.pieces = support.pieces + 1 : support.pieces = 1 
-            newState.cartItems.push(support)
+        if(specificItem){
+            specificItem.pieces ? specificItem.pieces = specificItem.pieces + 1 : specificItem.pieces = 1 
+            newState.cartItems[index] = specificItem
         }else{
+            action.product.pieces = 1
             newState.cartItems.push(action.product)
         }
-        newState.cartItems = [...newState.cartItems]
         return {
             ...state,
             cartItems: newState.cartItems
             }
         
         case REMOVE:
-        if(support){
-            newState.cartItems = newState.cartItems.filter(element => element.name !== support.name )
-            support.pieces ? support.pieces = support.pieces - 1 : support.pieces = 0
-            newState.cartItems.push(support)
+        if(specificItem){
+            specificItem.pieces ? specificItem.pieces = specificItem.pieces - 1 : specificItem.pieces = 0
+            if(specificItem.pieces === 0){
+                newState.cartItems = newState.cartItems.filter(element => element.name !== specificItem.name)
+            }else{
+                newState.cartItems[index] = specificItem
+            }
         }else{
             newState.cartItems.push(action.product)
         }
-        newState.cartItems = [...newState.cartItems]
+
         return {
             ...state,
             cartItems: newState.cartItems
             }
+
+        case EMPTY:
+            return {
+                ...state,
+                cartItems: []
+            }
+
+        case ORDER:
+            newOrders.orders.push(action.details)
+        return {
+            ...state,
+            orders: newOrders.orders,
+            cartItems: []
+        }
+
+        case DATALOADED:
+            return {
+                ...state,
+                products: action.products,
+                cartItems: []
+            }
         
-        default : return state;
+        default : return {
+            ...state
+        }
     }
 }

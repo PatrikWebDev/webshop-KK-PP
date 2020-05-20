@@ -10,15 +10,15 @@ class ShoppingCart extends Component{
                 <p>Empty Cart</p>
                 ) 
             }else{
-                const total = this.props.cartItems.reduce((sum, item)=> sum + (item.price * (item.pieces?item.pieces:1)), 0)
+                const total = this.props.cartItems.reduce((sum, item)=> sum + (item.price * (item.pieces?item.pieces:0)), 0)
                 return(
                     <div className={classes.shoppingCart}>
                         {total}
                         <div className={classes.details}>
                             {this.props.cartItems.map(item=>{
                               return(
-                                <div>
-                                    {`${item.pieces ? item.pieces : 1 } x ${item.name}    ${item.price}`}
+                                <div key={item.id} className="dropdown-item">
+                                    {`${item.pieces ? item.pieces : 0 } x ${item.name}    ${item.price}`}
                                 </div>
                             )   
                             }

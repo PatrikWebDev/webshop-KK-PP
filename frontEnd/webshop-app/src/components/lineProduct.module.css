@@ -1,3 +1,14 @@
 .ovalButton{
     border-radius: 50%;
 }
+.unknown {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(15%, 1fr));
+    grid-gap: 0.5rem;
+    height: 100vh;
+    }
+    
+    .item {
+      text-align: center;
+    }
+    

@@ -3,5 +3,5 @@
 }
 
 .shoppingcart:hover .details{
-    display: block;
+    display: inline-block;
 }

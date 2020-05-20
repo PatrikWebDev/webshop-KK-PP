@@ -19,17 +19,17 @@ export default class ImageGallery extends Component{
 
     render(){
         return(
-            <div>
+            <div style={{display:"grid", justifyItems:"center"}}>
                 <div>
                     {/* középső kép külön nagyba megjelenítve id alapján a css fileban méretezzük */}
                     <img id="central" alt="central" src={this.state.centralPicture} />
                 </div>
                     {/* egy divben hogy rendezve legyenek */}
-                <div>
+                <div >
                     {/* class alapján rendezve hogy szépen legyenek megjelenítve kattintásra változik a középső kép arra amire kattintuk ezért functionben átadjuk ugyanazt a képet */}
-                    <button type= "button"> Previous</button>
-                    <img class="pictures" src={this.props.img} alt="kep1" onClick={()=>{this.centralPicChanger(this.props.img)}}/>
-                    <button type="button" >NEXT</button>
+                    <button className="btn btn-primary" type= "button"> Previous</button>
+                    <img className="pictures" src={this.props.img} alt="kep1" onClick={()=>{this.centralPicChanger(this.props.img)}}/>
+                    <button className="btn btn-primary" type="button" >NEXT</button>
                 </div>
             </div>
         )

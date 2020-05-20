@@ -2,7 +2,14 @@
     display: flex;
 }
 
+.shoppingCart{
+    position: relative;
+}
+
 .details{
+    right: 0;
+    position: absolute;
+    background-color: rgb(34, 63, 58);
     display: none;
 }
 

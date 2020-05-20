@@ -1,13 +1,11 @@
 import React, {Component} from 'react'
-import classes from './lineProduct.module.css'
 import {add, remove} from './../Store/action'
 import { connect } from 'react-redux';
 
 class LineProduct extends Component{
     render(){
         return(
-            <div>
-                {this.props.cartItems.map(cartItem=>{
+                this.props.cartItems.map(cartItem=>{
                     let price
                     if(cartItem.pieces === 0){
                         price = 0
@@ -15,17 +13,18 @@ class LineProduct extends Component{
                         price = cartItem.price * (cartItem.pieces?cartItem.pieces:1)
                     }
                     return(
-                        <div>
-                        <img src={cartItem.image} alt={cartItem.name} />
-                        <p>{cartItem.name} ({cartItem.sku})</p>
-                        <button className={classes.ovalButton} onClick={ () => {this.props.remove(cartItem)}}> - </button>
-                        <span>{`${cartItem.pieces === undefined? 1 : cartItem.pieces}`}</span>
-                        <button className={classes.ovalButton} onClick={ () => {this.props.add(cartItem)}} > + </button>
+                        <div className="card text-white bg-success mb-3" style={{maxWidth: "20rem", display:"grid", alignItems: "center"}}>
+                        <p className="card-header" >{cartItem.name} ({cartItem.sku})</p>
+                        <div className="card-body">
+                        <img src={cartItem.image} alt={cartItem.name} style={{width: "75px", height: "75px", margin:"10px"}}/><br></br>
+                        <button className="btn btn-primary" onClick={ () => {this.props.remove(cartItem)}}> - </button>
+                        <span style={{paddingLeft: "5px", paddingRight: "5px"}}>{`${cartItem.pieces === undefined? 1 : cartItem.pieces}`}</span>
+                        <button className="btn btn-primary" onClick={ () => {this.props.add(cartItem)}} > + </button>
                         <p>{price}</p>
                         </div>
+                        </div>
                     )
-                })}
-            </div>
+                })
         )
     }
 }

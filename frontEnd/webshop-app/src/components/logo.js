@@ -1,9 +1,10 @@
 import React, {Component} from 'react'
 
+
 export default class Logo extends Component{
     render(){
         return(
-            <p>Place for logo</p>
+            <img alt="logo" src="logo.png" style={{height: "50px", width:"100px"}}/>
         )
     }
 }

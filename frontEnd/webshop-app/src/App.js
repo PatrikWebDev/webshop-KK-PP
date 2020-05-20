@@ -4,13 +4,14 @@ import {
   Switch,
   Route,
 } from "react-router-dom";
+import "bootswatch/dist/darkly/bootstrap.min.css";
 import './App.css';
 import Home from '../src/components/home-component'
-import Products from '../src/components/products-component'
 import Orders from '../src/components/orders-component'
 import ProductDetail from '../src/components/product-detail'
 import Header from './components/header';
 import Checkout from './components/checkout'
+import AdminOrder from './components/admin-order';
 
 
 function App() {
@@ -18,11 +19,12 @@ function App() {
     <Router>
       <Header />
       <Switch>
-      <Route path="/products/:id"  render={(props) => <ProductDetail {...props}/>} >
-        </Route>
-        <Route path="/products">
-          <Products />
-        </Route>
+      <Route path="/products/:id">
+        <ProductDetail />
+      </Route>
+      <Route path="/admin">
+        <AdminOrder />
+      </Route>
         <Route path="/orders">
           <Orders />
         </Route>
